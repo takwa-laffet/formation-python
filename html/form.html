@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+</head>
+<body>
+    <form action="backend.py" method="post">
+        <label>name</label>
+        <input type="text" name="nom" placeholder="donner mois votre nom" required>
+        <label>email</label>
+        <input type="email" >
+        <label>password</label>
+        <input type="password">
+        <label>Age</label>
+        <input type="number">
+        <h1>genre:</h1>
+        <input type="radio" name="genre" vlaue="homme">
+        <label for="homme">Homme</label>
+        <br>
+        <input type="radio" name="genre" value="femme">
+        <label for="femme">Femme</label>
+<p>cntres dintérét:</p>
+<input type="checkbox" value="sport">
+<label for="sport">Sport</label>
+<input type="checkbox" value="voyage">
+<label for="voyage">voyage</label>
+<input type="checkbox" value="lecture">
+<label for="lecture">lecture</label>
+<br>
+pays:
+<select name="pays">
+    <option value="tunisie">Tunisie</option>
+    <option value="france">France</option>
+    <option value="maroc">Maroc</option>
+</select>
+<br>
+Message:
+<textarea name="message" rows="5" cols="40"></textarea>
+<!-- <input type="submit" value="OK">-->
+ <button >envoyer</button>
+    </form>
+</body>
+</html>

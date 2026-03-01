@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Académie - Gestion{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Système de Gestion d'Académie</h1>
+        <nav>
+            <a href="/">Accueil</a> |
+            <a href="/users">Utilisateurs</a> |
+            <a href="/courses">Cours</a> |
+            <a href="/enrollments">Inscriptions</a>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Académie - Projet Flask POO</p>
+    </footer>
+</body>
+</html>

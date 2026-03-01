@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nom": "takwa laffet ",
+    "email": "takwa5laffet@gmail.com",
+    "role": "teacher"
+  },
+  {
+    "id": 2,
+    "nom": "nour ",
+    "email": "nour@gmail.com",
+    "role": "student"
+  },
+  {
+    "id": 3,
+    "nom": "md ali",
+    "email": "ali@gmail.com",
+    "role": "student"
+  }
+]

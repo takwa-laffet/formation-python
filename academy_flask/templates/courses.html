@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Cours - Académie{% endblock %}
+
+{% block content %}
+<h2>Gestion des Cours</h2>
+
+<h3>Créer un cours</h3>
+<form method="POST" action="/courses/add">
+    <p>
+        Titre: <input type="text" name="titre" required>
+        Enseignant: 
+        <select name="teacher_id" required>
+            <option value="">Sélectionner un enseignant</option>
+            {% for teacher in teachers %}
+            <option value="{{ teacher.id }}">{{ teacher.nom }}</option>
+            {% endfor %}
+        </select>
+        Capacité maximale: <input type="number" name="capacite_max" value="30" min="1" required>
+        <input type="submit" value="Créer">
+    </p>
+</form>
+
+<h3>Liste des cours</h3>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Enseignant</th>
+        <th>Capacité</th>
+        <th>Inscrits</th>
+        <th>Places</th>
+        <th>Actions</th>
+    </tr>
+    {% for course in courses %}
+    <tr>
+        <td>{{ course.id }}</td>
+        <td>{{ course.titre }}</td>
+        <td>
+            {% for teacher in teachers %}
+                {% if teacher.id == course.teacher_id %}{{ teacher.nom }}{% endif %}
+            {% endfor %}
+        </td>
+        <td>{{ course.capacite_max }}</td>
+        <td>{{ enrollment_counts[course.id] }}</td>
+        <td>{{ course.capacite_max - enrollment_counts[course.id] }}</td>
+        <td>
+            <a href="/courses/edit/{{ course.id }}">Modifier</a> |
+            <a href="/courses/delete/{{ course.id }}" onclick="return confirm('Êtes-vous sûr?')">Supprimer</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="7">Aucun cours trouvé</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if edit_course %}
+<h3>Modifier le cours</h3>
+<form method="POST" action="/courses/update/{{ edit_course.id }}">
+    <p>
+        Titre: <input type="text" name="titre" value="{{ edit_course.titre }}" required>
+        Enseignant: 
+        <select name="teacher_id" required>
+            {% for teacher in teachers %}
+            <option value="{{ teacher.id }}" {% if teacher.id == edit_course.teacher_id %}selected{% endif %}>
+                {{ teacher.nom }}
+            </option>
+            {% endfor %}
+        </select>
+        Capacité maximale: <input type="number" name="capacite_max" value="{{ edit_course.capacite_max }}" min="1" required>
+        <input type="submit" value="Mettre à jour">
+    </p>
+</form>
+<a href="/courses">Annuler</a>
+{% endif %}
+{% endblock %}

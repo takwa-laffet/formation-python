@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "titre": "python",
+    "teacher_id": 1,
+    "capacite_max": 15
+  },
+  {
+    "id": 2,
+    "titre": "dev web full stack",
+    "teacher_id": 1,
+    "capacite_max": 6
+  }
+]

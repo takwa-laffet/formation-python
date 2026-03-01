@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Utilisateurs - Académie{% endblock %}
+
+{% block content %}
+<h2>Gestion des Utilisateurs</h2>
+
+<h3>Ajouter un utilisateur</h3>
+<form method="POST" action="/users/add">
+    <p>
+        Nom: <input type="text" name="nom" required>
+        Email: <input type="email" name="email" required>
+        Rôle: 
+        <select name="role">
+            <option value="student">Étudiant</option>
+            <option value="teacher">Enseignant</option>
+            <option value="admin">Administrateur</option>
+        </select>
+        <input type="submit" value="Ajouter">
+    </p>
+</form>
+
+<h3>Liste des utilisateurs</h3>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Actions</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.nom }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+            {% if user.role == 'student' %}Étudiant
+            {% elif user.role == 'teacher' %}Enseignant
+            {% elif user.role == 'admin' %}Administrateur
+            {% else %}{{ user.role }}{% endif %}
+        </td>
+        <td>
+            <a href="/users/edit/{{ user.id }}">Modifier</a> |
+            <a href="/users/delete/{{ user.id }}" onclick="return confirm('Êtes-vous sûr?')">Supprimer</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="5">Aucun utilisateur trouvé</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if edit_user %}
+<h3>Modifier l'utilisateur</h3>
+<form method="POST" action="/users/update/{{ edit_user.id }}">
+    <p>
+        Nom: <input type="text" name="nom" value="{{ edit_user.nom }}" required>
+        Email: <input type="email" name="email" value="{{ edit_user.email }}" required>
+        Rôle: 
+        <select name="role">
+            <option value="student" {% if edit_user.role == 'student' %}selected{% endif %}>Étudiant</option>
+            <option value="teacher" {% if edit_user.role == 'teacher' %}selected{% endif %}>Enseignant</option>
+            <option value="admin" {% if edit_user.role == 'admin' %}selected{% endif %}>Administrateur</option>
+        </select>
+        <input type="submit" value="Mettre à jour">
+    </p>
+</form>
+<a href="/users">Annuler</a>
+{% endif %}
+{% endblock %}

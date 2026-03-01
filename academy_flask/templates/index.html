@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Académie{% endblock %}
+
+{% block content %}
+<h2>Bienvenue au Système de Gestion d'Académie</h2>
+
+<p>Cette application permet de gérer :</p>
+
+<ul>
+    <li><strong>Utilisateurs</strong> : Gestion des étudiants, enseignants et administrateurs</li>
+    <li><strong>Cours</strong> : Création et gestion des cours avec association d'enseignants</li>
+    <li><strong>Inscriptions</strong> : Inscription des étudiants aux cours avec vérification des places disponibles</li>
+</ul>
+
+<h3>Statistiques</h3>
+<ul>
+    <li>Nombre d'utilisateurs : {{ user_count }}</li>
+    <li>Nombre de cours : {{ course_count }}</li>
+    <li>Nombre d'inscriptions : {{ enrollment_count }}</li>
+</ul>
+
+<p>Utilisez le menu ci-dessus pour naviguer dans l'application.</p>
+{% endblock %}

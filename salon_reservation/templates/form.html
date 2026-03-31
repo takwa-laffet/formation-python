@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter une Réservation</title>
+</head>
+<body>
+    <h1>Ajouter une Réservation</h1>
+    
+    <nav>
+        <a href="/">Voir toutes les réservations</a>
+        <a href="/check">Vérifier disponibilité</a>
+    </nav>
+    
+    {% if error %}
+    <p style="color: red">{{ error }}</p>
+    {% endif %}
+    
+    {% if success %}
+    <p style="color: green">{{ success }}</p>
+    {% endif %}
+    
+    <form method="POST" action="/form">
+        <p>
+            <label>Nom:</label>
+            <input type="text" name="name" required>
+        </p>
+        <p>
+            <label>Téléphone:</label>
+            <input type="tel" name="phone" required>
+        </p>
+        <p>
+            <label>Date:</label>
+            <input type="date" name="date" required>
+        </p>
+        <p>
+            <label>Créneau:</label>
+            <select name="time_slot" required>
+                <option value="">Sélectionnez</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+            </select>
+        </p>
+        <button type="submit">Réserver</button>
+    </form>
+</body>
+</html>

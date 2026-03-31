@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon de Coiffure - Réservations</title>
+</head>
+<body>
+    <h1>Salon de Coiffure - Réservations</h1>
+    
+    <h2>Ajouter une réservation</h2>
+    <div id="formMessage"></div>
+    <form id="reservationForm">
+        <p>
+            Nom: <input type="text" id="name" required>
+        </p>
+        <p>
+            Téléphone: <input type="tel" id="phone" required>
+        </p>
+        <p>
+            Date: <input type="date" id="date" required>
+        </p>
+        <p>
+            Créneau: 
+            <select id="time_slot" required>
+                <option value="">Sélectionnez</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+            </select>
+        </p>
+        <button type="submit">Réserver</button>
+    </form>
+    
+    <h2>Vérifier disponibilité</h2>
+    <form id="checkForm">
+        <p>
+            Date: <input type="date" id="checkDate" required>
+        </p>
+        <p>
+            Créneau: 
+            <select id="checkTime" required>
+                <option value="">Sélectionnez</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+            </select>
+        </p>
+        <button type="submit">Vérifier</button>
+    </form>
+    <p id="checkResult"></p>
+    
+    <h2>Réservations</h2>
+    <table border="1" id="reservationsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Téléphone</th>
+                <th>Date</th>
+                <th>Créneau</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="reservationsBody">
+        </tbody>
+    </table>
+    <p id="noReservations">Aucune réservation.</p>
+    
+    <script>
+        let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+        
+        function saveReservations() {
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+        }
+        
+        function isSlotAvailable(date, time_slot) {
+            return !reservations.some(res => res.date === date && res.time_slot === time_slot);
+        }
+        
+        function displayReservations() {
+            const tbody = document.getElementById('reservationsBody');
+            const noReservations = document.getElementById('noReservations');
+            const table = document.getElementById('reservationsTable');
+            
+            tbody.innerHTML = '';
+            
+            if (reservations.length === 0) {
+                table.style.display = 'none';
+                noReservations.style.display = 'block';
+            } else {
+                table.style.display = 'table';
+                noReservations.style.display = 'none';
+                
+                reservations.forEach((res, index) => {
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${res.name}</td>
+                        <td>${res.phone}</td>
+                        <td>${res.date}</td>
+                        <td>${res.time_slot}</td>
+                        <td><button onclick="deleteReservation(${index})">Supprimer</button></td>
+                    `;
+                });
+            }
+        }
+        
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const time_slot = document.getElementById('time_slot').value;
+            const messageDiv = document.getElementById('formMessage');
+            
+            if (!isSlotAvailable(date, time_slot)) {
+                messageDiv.innerHTML = '<p style="color:red">Erreur: Ce créneau est déjà réservé!</p>';
+                return;
+            }
+            
+            reservations.push({ name, phone, date, time_slot });
+            saveReservations();
+            
+            messageDiv.innerHTML = '<p style="color:green">Réservation ajoutée avec succès!</p>';
+            document.getElementById('reservationForm').reset();
+            displayReservations();
+        });
+        
+        function deleteReservation(index) {
+            if (confirm('Voulez-vous supprimer cette réservation?')) {
+                reservations.splice(index, 1);
+                saveReservations();
+                displayReservations();
+            }
+        }
+        
+        document.getElementById('checkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const date = document.getElementById('checkDate').value;
+            const time_slot = document.getElementById('checkTime').value;
+            const resultDiv = document.getElementById('checkResult');
+            
+            if (isSlotAvailable(date, time_slot)) {
+                resultDiv.innerHTML = '<p style="color:green">Ce créneau est disponible!</p>';
+            } else {
+                resultDiv.innerHTML = '<p style="color:red">Ce créneau est déjà réservé.</p>';
+            }
+        });
+        
+        displayReservations();
+    </script>
+</body>
+</html>

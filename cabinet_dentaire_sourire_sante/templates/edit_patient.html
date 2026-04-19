@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Modifier Patient{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h2>Modifier Patient</h2>
+    <form method="post" class="form-grid">
+        <label>Nom complet
+            <input type="text" name="full_name" value="{{ patient.full_name }}" required>
+        </label>
+        <label>Date de naissance
+            <input type="date" name="birth_date" value="{{ patient.birth_date }}" required>
+        </label>
+        <label>Telephone
+            <input type="text" name="phone" value="{{ patient.phone }}">
+        </label>
+        <label>Email
+            <input type="email" name="email" value="{{ patient.email }}">
+        </label>
+        <button type="submit">Mettre a jour</button>
+    </form>
+</section>
+{% endblock %}

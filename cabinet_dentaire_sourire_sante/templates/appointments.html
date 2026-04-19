@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Rendez-vous{% endblock %}
+
+{% block content %}
+<section class="list-header">
+    <h2>Liste des Rendez-vous</h2>
+    <div class="inline-tools">
+        <form method="get" action="{{ url_for('appointments') }}" class="inline-form">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" value="{{ date_filter }}">
+            <button type="submit">Filtrer</button>
+        </form>
+        {% if session.get('role') in ['admin', 'secretaire'] %}
+        <a class="btn" href="{{ url_for('add_appointment') }}">Ajouter Rendez-vous</a>
+        {% endif %}
+    </div>
+</section>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Patient</th>
+            <th>Dentiste</th>
+            <th>Date/Heure</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.id }}</td>
+            <td>{{ appointment.patient_name }}</td>
+            <td>{{ appointment.dentist_name }}</td>
+            <td>{{ appointment.appointment_datetime }}</td>
+            <td>{{ appointment.status }}</td>
+            <td class="actions">
+                <a href="{{ url_for('edit_appointment', appointment_id=appointment.id) }}">Modifier</a>
+                {% if session.get('role') in ['admin', 'secretaire'] %}
+                <form method="post" action="{{ url_for('delete_appointment', appointment_id=appointment.id) }}" onsubmit="return confirm('Supprimer ce rendez-vous ?');">
+                    <button type="submit" class="btn-danger">Supprimer</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Aucun rendez-vous trouve.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

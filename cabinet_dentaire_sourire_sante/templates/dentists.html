@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Dentistes{% endblock %}
+
+{% block content %}
+<section class="list-header">
+    <h2>Liste des Dentistes</h2>
+    {% if session.get('role') == 'admin' %}
+    <a class="btn" href="{{ url_for('add_dentist') }}">Ajouter Dentiste</a>
+    {% endif %}
+</section>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Specialite</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            {% if session.get('role') == 'admin' %}
+            <th>Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for dentist in dentists %}
+        <tr>
+            <td>{{ dentist.id }}</td>
+            <td>{{ dentist.full_name }}</td>
+            <td>{{ dentist.speciality }}</td>
+            <td>{{ dentist.email }}</td>
+            <td>{{ dentist.phone }}</td>
+            {% if session.get('role') == 'admin' %}
+            <td class="actions">
+                <a href="{{ url_for('edit_dentist', dentist_id=dentist.id) }}">Modifier</a>
+                <form method="post" action="{{ url_for('delete_dentist', dentist_id=dentist.id) }}" onsubmit="return confirm('Supprimer ce dentiste ?');">
+                    <button type="submit" class="btn-danger">Supprimer</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="6">Aucun dentiste trouve.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

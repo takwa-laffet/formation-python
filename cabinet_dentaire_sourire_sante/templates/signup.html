@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+<section class="card auth-card">
+    <h2>Inscription</h2>
+    <form method="post" class="form-grid">
+        <label>Nom complet
+            <input type="text" name="full_name" required>
+        </label>
+        <label>Email
+            <input type="email" name="email" required>
+        </label>
+        <label>Mot de passe
+            <input type="password" name="password" required>
+        </label>
+        <label>Role
+            <select name="role" required>
+                <option value="secretaire">Secretaire</option>
+                <option value="dentiste">Dentiste</option>
+                <option value="admin">Administrateur</option>
+            </select>
+        </label>
+        <button type="submit">S'inscrire</button>
+    </form>
+    <p>Vous avez deja un compte ? <a href="{{ url_for('login') }}">Se connecter</a></p>
+</section>
+{% endblock %}

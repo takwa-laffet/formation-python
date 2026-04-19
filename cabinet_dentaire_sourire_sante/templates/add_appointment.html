@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter Rendez-vous{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h2>Ajouter Rendez-vous</h2>
+    <form method="post" class="form-grid">
+        <label>Patient
+            <select name="patient_id" required>
+                <option value="">Choisir un patient</option>
+                {% for patient in patients %}
+                <option value="{{ patient.id }}">{{ patient.full_name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Dentiste
+            <select name="dentist_id" required>
+                <option value="">Choisir un dentiste</option>
+                {% for dentist in dentists %}
+                <option value="{{ dentist.id }}">{{ dentist.full_name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Date et heure
+            <input type="datetime-local" name="appointment_datetime" required>
+        </label>
+
+        <label>Statut
+            <select name="status" required>
+                {% for status in status_choices %}
+                <option value="{{ status }}">{{ status }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</section>
+{% endblock %}

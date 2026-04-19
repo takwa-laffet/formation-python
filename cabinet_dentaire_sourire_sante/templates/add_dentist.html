@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter Dentiste{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h2>Ajouter Dentiste</h2>
+    <form method="post" class="form-grid">
+        <label>Nom complet
+            <input type="text" name="full_name" required>
+        </label>
+        <label>Specialite
+            <input type="text" name="speciality" placeholder="Orthodontie, Chirurgie...">
+        </label>
+        <label>Email
+            <input type="email" name="email" required>
+        </label>
+        <label>Telephone
+            <input type="text" name="phone">
+        </label>
+        <button type="submit">Enregistrer</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Modifier Dentiste{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h2>Modifier Dentiste</h2>
+    <form method="post" class="form-grid">
+        <label>Nom complet
+            <input type="text" name="full_name" value="{{ dentist.full_name }}" required>
+        </label>
+        <label>Specialite
+            <input type="text" name="speciality" value="{{ dentist.speciality }}">
+        </label>
+        <label>Email
+            <input type="email" name="email" value="{{ dentist.email }}" required>
+        </label>
+        <label>Telephone
+            <input type="text" name="phone" value="{{ dentist.phone }}">
+        </label>
+        <button type="submit">Mettre a jour</button>
+    </form>
+</section>
+{% endblock %}

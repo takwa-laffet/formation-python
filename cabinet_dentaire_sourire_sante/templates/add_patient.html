@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter Patient{% endblock %}
+
+{% block content %}
+<section class="card form-card">
+    <h2>Ajouter Patient</h2>
+    <form method="post" class="form-grid">
+        <label>Nom complet
+            <input type="text" name="full_name" required>
+        </label>
+        <label>Date de naissance
+            <input type="date" name="birth_date" required>
+        </label>
+        <label>Telephone
+            <input type="text" name="phone">
+        </label>
+        <label>Email
+            <input type="email" name="email">
+        </label>
+        <button type="submit">Enregistrer</button>
+    </form>
+</section>
+{% endblock %}

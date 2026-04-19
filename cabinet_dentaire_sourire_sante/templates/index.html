@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<section class="dashboard-header">
+    <h2>Bienvenue {{ session.get('full_name') }}</h2>
+    <p>Role: {{ session.get('role') }}</p>
+</section>
+
+<section class="stats-grid">
+    <article class="card stat">
+        <h3>Patients</h3>
+        <p>{{ total_patients }}</p>
+    </article>
+    <article class="card stat">
+        <h3>Dentistes</h3>
+        <p>{{ total_dentists }}</p>
+    </article>
+    <article class="card stat">
+        <h3>Rendez-vous</h3>
+        <p>{{ total_appointments }}</p>
+    </article>
+</section>
+{% endblock %}

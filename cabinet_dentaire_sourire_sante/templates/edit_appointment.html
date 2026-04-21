@@ -33,6 +33,10 @@
             </select>
         </label>
 
+        <label>Description medicale
+            <textarea name="medical_description" rows="4" placeholder="Description du soin, diagnostic, observations...">{{ appointment.medical_description or '' }}</textarea>
+        </label>
+
         <button type="submit">Mettre a jour</button>
     </form>
 </section>

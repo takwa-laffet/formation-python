@@ -7,6 +7,7 @@ Application web Flask pour gerer les patients, dentistes et rendez-vous d'un cab
 - Gestion des patients: ajouter, modifier, supprimer, lister
 - Gestion des dentistes: ajouter, modifier, supprimer, lister
 - Gestion des rendez-vous: ajouter, modifier, supprimer, filtrer par date
+- Chaque rendez-vous peut contenir une description medicale redigee par le dentiste
 - Gestion des roles:
   - `admin`: acces total
   - `secretaire`: patients + rendez-vous

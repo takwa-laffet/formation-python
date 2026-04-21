@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     dentist_id INT NOT NULL,
     appointment_datetime DATETIME NOT NULL,
     status ENUM('Confirme', 'Annule', 'Realise') DEFAULT 'Confirme',
+    medical_description TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_appointments_patient
         FOREIGN KEY (patient_id) REFERENCES patients(id)
